@@ -1,0 +1,1366 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cross Four 27 — Rutinas</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700;900&family=Barlow:wght@400;500&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --red: #CC0000;
+      --red-dark: #8B0000;
+      --red-glow: #ff2200;
+      --neon: #C8E000;
+      --orange: #E8650A;
+      --black: #0a0a0a;
+      --dark: #111111;
+      --dark2: #1a1a1a;
+      --dark3: #222222;
+      --white: #f5f5f0;
+      --gray: #888;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: 'Barlow', sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ===== HEADER ===== */
+    header {
+      background: linear-gradient(135deg, var(--red-dark) 0%, var(--black) 60%);
+      border-bottom: 3px solid var(--red);
+      padding: 20px 24px 16px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      box-shadow: 0 4px 30px rgba(204, 0, 0, 0.4);
+      overflow: hidden;
+    }
+
+    header::after {
+      content: '27';
+      position: absolute;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 100px;
+      color: rgba(255, 255, 255, 0.04);
+      line-height: 1;
+      pointer-events: none;
+    }
+
+    .logo-icon {
+      width: 54px;
+      height: 54px;
+      border-radius: 10px;
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+
+    .logo-icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+
+    .header-text h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 26px;
+      letter-spacing: 3px;
+      color: var(--white);
+      line-height: 1;
+    }
+
+    .header-text h1 span {
+      color: var(--neon);
+    }
+
+    .header-text p {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 12px;
+      color: var(--orange);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-top: 2px;
+    }
+
+    /* ===== HERO BANNER (COLLAGE) ===== */
+    .hero {
+      width: 100%;
+      height: 220px;
+      position: relative;
+      overflow: hidden;
+      border-bottom: 1px solid #2a0000;
+    }
+
+    .hero img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom,
+          rgba(10, 10, 10, 0.3) 0%,
+          rgba(10, 10, 10, 0.8) 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 24px;
+    }
+
+    .hero-overlay h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 36px;
+      letter-spacing: 4px;
+      color: var(--white);
+      line-height: 1;
+    }
+
+    .hero-overlay h2 em {
+      color: var(--neon);
+      font-style: normal;
+    }
+
+    .hero-overlay p {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 14px;
+      color: var(--gray);
+      margin-top: 8px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    /* ===== TABS ===== */
+    .tabs-wrapper {
+      background: var(--dark);
+      border-bottom: 2px solid #1e1e1e;
+      padding: 0 8px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      position: sticky;
+      top: 91px;
+      z-index: 90;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+    }
+
+    .tabs-wrapper::-webkit-scrollbar {
+      display: none;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 0;
+      min-width: max-content;
+    }
+
+    .tab-btn {
+      background: none;
+      border: none;
+      color: var(--gray);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 16px 18px 13px;
+      cursor: pointer;
+      border-bottom: 3px solid transparent;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+
+    .tab-btn:hover {
+      color: var(--white);
+    }
+
+    .tab-btn.active {
+      color: var(--neon);
+      border-bottom-color: var(--red);
+      background: rgba(204, 0, 0, 0.08);
+    }
+
+    .tab-btn .day-badge {
+      display: inline-block;
+      background: var(--red);
+      color: var(--white);
+      font-size: 9px;
+      font-weight: 700;
+      padding: 2px 5px;
+      border-radius: 3px;
+      margin-right: 5px;
+      vertical-align: middle;
+    }
+
+    .tab-btn.active .day-badge {
+      background: var(--neon);
+      color: var(--black);
+    }
+
+    /* ===== CONTENT ===== */
+    .content {
+      padding: 24px 16px 40px;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .routine-panel {
+      display: none;
+    }
+
+    .routine-panel.active {
+      display: block;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* ===== MUSCLE GROUP HEADER ===== */
+    .muscle-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid #1e1e1e;
+    }
+
+    .muscle-icon {
+      width: 52px;
+      height: 52px;
+      background: linear-gradient(135deg, var(--red), var(--red-dark));
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 26px;
+      flex-shrink: 0;
+      box-shadow: 0 4px 16px rgba(204, 0, 0, 0.4);
+    }
+
+    .muscle-info h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 28px;
+      letter-spacing: 3px;
+      color: var(--white);
+      line-height: 1;
+    }
+
+    .muscle-info p {
+      font-size: 12px;
+      color: var(--gray);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      font-family: 'Barlow Condensed', sans-serif;
+      margin-top: 3px;
+    }
+
+    .muscle-info p span {
+      color: var(--neon);
+      font-weight: 700;
+    }
+
+    /* ===== EXERCISE CARD ===== */
+    .exercise-card {
+      background: var(--dark2);
+      border-radius: 14px;
+      margin-bottom: 14px;
+      border: 1px solid #222;
+      overflow: hidden;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .exercise-card:hover {
+      border-color: var(--red);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(204, 0, 0, 0.15);
+    }
+
+    .exercise-header {
+      padding: 16px 18px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .exercise-num {
+      width: 32px;
+      height: 32px;
+      background: var(--red);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 18px;
+      color: var(--white);
+      flex-shrink: 0;
+    }
+
+    .exercise-title {
+      flex: 1;
+    }
+
+    .exercise-title h3 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: 0.5px;
+      line-height: 1.2;
+    }
+
+    .exercise-title p {
+      font-size: 12px;
+      color: var(--orange);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-top: 3px;
+    }
+
+    .expand-arrow {
+      color: var(--gray);
+      font-size: 20px;
+      transition: transform 0.3s;
+      flex-shrink: 0;
+    }
+
+    .exercise-card.open .expand-arrow {
+      transform: rotate(180deg);
+    }
+
+    /* ===== EXERCISE BODY ===== */
+    .exercise-body {
+      display: none;
+      padding: 0 18px 18px;
+      border-top: 1px solid #1e1e1e;
+    }
+
+    .exercise-card.open .exercise-body {
+      display: block;
+      animation: fadeIn 0.25s ease;
+    }
+
+    /* GIF placeholder */
+    .gif-placeholder {
+      width: 100%;
+      height: 200px;
+      background: linear-gradient(135deg, #1a1a1a, #111);
+      border-radius: 10px;
+      margin: 14px 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border: 2px dashed #2a2a2a;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .gif-placeholder::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(45deg,
+          transparent,
+          transparent 10px,
+          rgba(204, 0, 0, 0.03) 10px,
+          rgba(204, 0, 0, 0.03) 20px);
+    }
+
+    /* Real GIF/image support */
+    .exercise-gif {
+      width: 100%;
+      border-radius: 10px;
+      margin: 14px 0;
+      display: block;
+      object-fit: contain;
+      background: #111;
+    }
+
+    .gif-icon {
+      font-size: 36px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .gif-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 12px;
+      color: var(--gray);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Sets chips */
+    .sets-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 12px;
+    }
+
+    .set-chip {
+      background: var(--dark3);
+      border: 1px solid #333;
+      border-radius: 8px;
+      padding: 8px 14px;
+      text-align: center;
+      flex: 1;
+      min-width: 60px;
+    }
+
+    .set-chip .chip-top {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 22px;
+      color: var(--neon);
+      line-height: 1;
+    }
+
+    .set-chip .chip-bot {
+      font-size: 10px;
+      color: var(--gray);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      font-family: 'Barlow Condensed', sans-serif;
+      margin-top: 2px;
+    }
+
+    .set-chip.highlight {
+      border-color: var(--red);
+      background: rgba(204, 0, 0, 0.1);
+    }
+
+    .set-chip.highlight .chip-top {
+      color: var(--orange);
+    }
+
+    /* Notes */
+    .exercise-note {
+      margin-top: 12px;
+      background: rgba(200, 224, 0, 0.06);
+      border-left: 3px solid var(--neon);
+      border-radius: 0 8px 8px 0;
+      padding: 10px 14px;
+      font-size: 13px;
+      color: #bbb;
+      line-height: 1.5;
+      font-family: 'Barlow', sans-serif;
+    }
+
+    .exercise-note strong {
+      color: var(--neon);
+      font-weight: 600;
+    }
+
+    /* Muscles tag */
+    .muscles-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(232, 101, 10, 0.12);
+      border: 1px solid rgba(232, 101, 10, 0.3);
+      border-radius: 20px;
+      padding: 5px 12px;
+      font-size: 12px;
+      color: var(--orange);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-top: 12px;
+    }
+
+    /* Warm-up badge */
+    .warmup-badge {
+      display: inline-block;
+      background: rgba(200, 224, 0, 0.15);
+      border: 1px solid var(--neon);
+      color: var(--neon);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 4px;
+      margin-left: 6px;
+      vertical-align: middle;
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: var(--dark);
+      border-top: 2px solid var(--red);
+      padding: 24px;
+      text-align: center;
+    }
+
+    footer p {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 18px;
+      letter-spacing: 4px;
+      color: var(--red);
+    }
+
+    footer small {
+      display: block;
+      font-size: 11px;
+      color: var(--gray);
+      margin-top: 4px;
+      letter-spacing: 1px;
+      font-family: 'Barlow Condensed', sans-serif;
+    }
+
+    /* ===== PROGRESS BAR ===== */
+    .progress-bar {
+      height: 3px;
+      background: #1a1a1a;
+      margin-bottom: 20px;
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--red), var(--orange), var(--neon));
+      border-radius: 2px;
+      transition: width 0.4s ease;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="logo-icon">
+      <img src="images/cross_logo.jpg" alt="Cross Four 27">
+    </div>
+    <div class="header-text">
+      <h1>CROSS <span>FOUR</span> 27</h1>
+      <p>Rutinas de Entrenamiento</p>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <div class="hero">
+    <img src="images/hero-collage.jpg" alt="Cross Four 27 Box">
+    <div class="hero-overlay">
+      <h2>TU <em>PLAN</em><br>SEMANAL</h2>
+      <p>Selecciona tu grupo muscular del día</p>
+    </div>
+  </div>
+
+  <!-- TABS -->
+  <div class="tabs-wrapper">
+    <div class="tabs">
+      <button class="tab-btn active" onclick="showTab('lunes', this)">
+        <span class="day-badge">LUNES</span>Cuadricep
+      </button>
+      <button class="tab-btn" onclick="showTab('martes', this)">
+        <span class="day-badge">MARTES</span>Espalda & Bícep
+      </button>
+      <button class="tab-btn" onclick="showTab('miercoles', this)">
+        <span class="day-badge">MIÉRCOLES</span>Glúteos & Fem.
+      </button>
+      <button class="tab-btn" onclick="showTab('jueves', this)">
+        <span class="day-badge">JUEVES</span>Hombro & Pecho
+      </button>
+      <button class="tab-btn" onclick="showTab('viernes', this)">
+        <span class="day-badge">VIERNES</span>Pierna Completa
+      </button>
+    </div>
+  </div>
+
+  <!-- CONTENT -->
+  <div class="content">
+
+    <!-- ======= LUNES: CUADRICEP ======= -->
+    <div id="tab-lunes" class="routine-panel active">
+      <div class="muscle-header">
+        <div class="muscle-icon">🦵</div>
+        <div class="muscle-info">
+          <h2>CUADRICEP</h2>
+          <p><span>4</span> ejercicios · Lunes</p>
+        </div>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-fill" style="width:0%" data-target="100"></div>
+      </div>
+
+      <!-- Ejercicio 1 -->
+      <div class="exercise-card" onclick="toggleCard(this)">
+        <div class="exercise-header">
+          <div class="exercise-num">1</div>
+          <div class="exercise-title">
+            <h3>Sentadilla Perfecta <span class="warmup-badge">Calentamiento</span></h3>
+            <p>Sin peso · 30 reps</p>
+          </div>
+          <div class="expand-arrow">▾</div>
+        </div>
+        <div class="exercise-body">
+          <img class="exercise-gif" src="images/gifs/lunes/01-sentadilla-perfecta.png" alt="Sentadilla Perfecta">
+          <div class="sets-row">
+            <div class="set-chip highlight">
+              <div class="chip-top">1</div>
+              <div class="chip-bot">Serie</div>
+            </div>
+            <div class="set-chip highlight">
+              <div class="chip-top">30</div>
+              <div class="chip-bot">Reps</div>
+            </div>
+            <div class="set-chip">
+              <div class="chip-top">—</div>
+              <div class="chip-bot">Peso</div>
+            </div>
+          </div>
+          <div class="exercise-note">
+            <strong>💡 Calentamiento:</strong> Sin peso. Enfócate en la técnica: espalda recta, rodillas alineadas con
+            los pies, baja hasta que los muslos queden paralelos al suelo.
+          </div>
+          <div class="muscles-tag">🎯 Cuadriceps · Glúteos · Core</div>
+        </div>
+      </div>
+
+      <!-- Ejercicio 2 -->
+      <div class="exercise-card" onclick="toggleCard(this)">
+        <div class="exercise-header">
+          <div class="exercise-num">2</div>
+          <div class="exercise-title">
+            <h3>Sentadilla Perfecta</h3>
+            <p>4 × 12 · Peso progresivo</p>
+          </div>
+          <div class="expand-arrow">▾</div>
+        </div>
+        <div class="exercise-body">
+          <img class="exercise-gif" src="images/gifs/lunes/02-sentadilla-perfecta-peso.png" alt="Sentadilla Perfecta">
+          <div class="sets-row">
+            <div class="set-chip highlight">
+              <div class="chip-top">4</div>
+              <div class="chip-bot">Series</div>
+            </div>
+            <div class="set-chip highlight">
+              <div class="chip-top">12</div>
+              <div class="chip-bot">Reps</div>
+            </div>
+            <div class="set-chip">
+              <div class="chip-top">↑</div>
+              <div class="chip-bot">Peso</div>
+            </div>
+          </div>
+          <div class="exercise-note">
+            <strong>📈 Progresión:</strong> Aumenta el peso en cada serie. Ejemplo: Serie 1 cómodo → Serie 4 desafiante.
+            Mantén la técnica perfecta en todas las series.
+          </div>
+          <div class="muscles-tag">🎯 Cuadriceps · Glúteos · Isquiotibiales</div>
+        </div>
+      </div>
+
+      <!-- Ejercicio 3 -->
+      <div class="exercise-card" onclick="toggleCard(this)">
+        <div class="exercise-header">
+          <div class="exercise-num">3</div>
+          <div class="exercise-title">
+            <h3>Prensa + Desplante Caminando</h3>
+            <p>3 × 12 cada uno</p>
+          </div>
+          <div class="expand-arrow">▾</div>
+        </div>
+        <div class="exercise-body">
+          <img class="exercise-gif" src="images/gifs/lunes/03-prensa-desplante.png" alt="Prensa y Desplante">
+          <div class="sets-row">
+            <div class="set-chip highlight">
+              <div class="chip-top">3</div>
+              <div class="chip-bot">Series</div>
+            </div>
+            <div class="set-chip highlight">
+              <div class="chip-top">12</div>
+              <div class="chip-bot">Reps c/u</div>
+            </div>
+          </div>
+          <div class="exercise-note">
+            <strong>🔄 Superserie:</strong> Realiza las 12 reps de prensa y sin descanso haz los desplantes caminando.
+            Luego descansa 60–90 segundos.
+          </div>
+          <div class="muscles-tag">🎯 Cuadriceps · Glúteos · Estabilizadores</div>
+        </div>
+      </div>
+
+      <!-- Ejercicio 4 -->
+      <div class="exercise-card" onclick="toggleCard(this)">
+        <div class="exercise-header">
+          <div class="exercise-num">4</div>
+          <div class="exercise-title">
+            <h3>Extensiones de Pierna</h3>
+            <p>Serie especial · 12 + 12 + 6r + 6s</p>
+          </div>
+          <div class="expand-arrow">▾</div>
+        </div>
+        <div class="exercise-body">
+          <img class="exercise-gif" src="images/gifs/lunes/04-extensiones-pierna.png" alt="Extensiones de Pierna">
+          <div class="sets-row">
+            <div class="set-chip highlight">
+              <div class="chip-top">12</div>
+              <div class="chip-bot">Normales</div>
+            </div>
+            <div class="set-chip highlight">
+              <div class="chip-top">12</div>
+              <div class="chip-bot">Normales</div>
+            </div>
+            <div class="set-chip">
+              <div class="chip-top">6</div>
+              <div class="chip-bot">Rápidas</div>
+            </div>
+            <div class="set-chip">
+              <div class="chip-top">6</div>
+              <div class="chip-bot">2 seg arriba</div>
+            </div>
+          </div>
+          <div class="exercise-note">
+            <strong>⚡ Método especial:</strong> Primero 1 serie de 12 reps normales. Luego 2 series de: 12 normales + 6
+            rápidas + 6 manteniendo las piernas arriba 2 segundos. ¡Quema total de cuádricep!
+          </div>
+          <div class="muscles-tag">🎯 Cuadriceps (aislamiento)</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ======= MARTES: ESPALDA & BÍCEP ======= -->
+    <div id="tab-martes" class="routine-panel">
+      <div class="muscle-header">
+        <div class="muscle-icon">💪</div>
+        <div class="muscle-info">
+          <h2>ESPALDA & BÍCEP</h2>
+          <p><span>5</span> ejercicios · Martes</p>
+        </div>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-fill" style="width:0%" data-target="100"></div>
+      </div>
+
+      <div class="exercise-card" onclick="toggleCard(this)">
+        <div class="exercise-header">
+          <div class="exercise-num">1</div>
+          <div class="exercise-title">
+            <h3>Jalón al Pecho Abierto</h3>
+            <p>4 × 12</p>
+          </div>
+          <div class="expand-arrow">▾</div>
+        </div>
+        <div class="exercise-body">
+          <img class="exercise-gif" src="images/gifs/martes/01-jalon-pecho-abierto.gif" alt="Jalón al Pecho">
+          <div class="sets-row">
+            <div class="set-chip highlight">
+              <div class="chip-top">4</div>
+              <div class="chip-bot">Series</div>
+            </div>
+            <div class="set-chip highlight">
+              <div class="chip-top">12</div>
+              <div class="chip-bot">Reps</div>
+            </div>
+          </div>
+          <div class="exercise-note"><strong>💡 Técnica:</strong> Agarre ancho, pecho al frente, baja la barra hasta la
+            clavícula. Contrae la espalda al final del movimiento.</div>
+          <div class="muscles-tag">🎯 Dorsal Ancho · Romboides · Bíceps</div>
+        </div>
+      </div>
+
+      <div class="exercise-card" onclick="toggleCard(this)">
+        <div class="exercise-header">
+          <div class="exercise-num">2</div>
+          <div class="exercise-title">
+            <h3>Jalón Agarre Cerrado + Supino</h3>
+            <p>4 × 12 alternando agarres</p>
+          </div>
+          <div class="expand-arrow">▾</div>
+        </div>
+        <div class="exercise-body">
+          <img class="exercise-gif" src="images/gifs/martes/02-jalon-cerrado-supino.png" alt="Jalón Cerrado">
+          <div class="sets-row">
+            <div class="set-chip highlight">
+              <div class="chip-top">4</div>
+              <div class="chip-bot">Series</div>
+            </div>
+            <div class="set-chip highlight">
+              <div class="chip-top">12</div>
+              <div class="chip-bot">Reps</div>
+            </div>
+          </div>
+          <div class="exercise-note"><strong>🔄 Variantes:</strong> Alterna entre agarre cerrado (palmas enfrentadas) y
+            supino (palmas hacia ti) para trabajar distintos ángulos del dorsal.</div>
+          <div class="muscles-tag">🎯 Dorsal · Bíceps · Trapecio inferior</div>
+        </div>
+      </div>
+
+      <div class="exercise-card" onclick="toggleCard(this)">
+        <div class="exercise-header">
+          <div class="exercise-num">3</div>
+          <div class="exercise-title">
+            <h3>Remo Sentada con Triángulo</h3>
+            <p>3 × 12</p>
+          </div>
+          <div class="expand-arrow">▾</div>
+        </div>
+        <div class="exercise-body">
+          <img class="exercise-gif" src="images/gifs/martes/03-remo-sentada-triangulo.png" alt="Remo Sentada">
+          <div class="sets-row">
+            <div class="set-chip highlight">
+              <div class="chip-top">3</div>
+              <div class="chip-bot">Series</div>
+            </div>
+            <div class="set-chip highlight">
+              <div class="chip-top">12</div>
+              <div class="chip-bot">Reps</div>
+            </div>
+          </div>
+          <div class="exercise-note"><strong>💡 Técnica:</strong> Jala el triángulo hacia el abdomen. Espalda recta,
+            codos cerca del cuerpo. Aprieta escápulas al final.</div>
+          <div class="muscles-tag">🎯 Dorsal · Romboides · Bíceps</div>
+        </div>
+      </div>
+
+      <div class="exercise-card" onclick="toggleCard(this)">
+        <div class="exercise-header">
+          <div class="exercise-num">4</div>
+          <div class="exercise-title">
+            <h3>Curl en Polea</h3>
+            <p>3 × 12</p>
+          </div>
+          <div class="expand-arrow">▾</div>
+        </div>
+        <div class="exercise-body">
+          <img class="exercise-gif" src="images/gifs/martes/04-curl-polea.jpg" alt="Curl en Polea">
+          <div class="sets-row">
+            <div class="set-chip highlight">
+              <div class="chip-top">3</div>
+              <div class="chip-bot">Series</div>
+            </div>
+            <div class="set-chip highlight">
+              <div class="chip-top">12</div>
+              <div class="chip-bot">Reps</div>
+            </div>
+          </div>
+          <div class="exercise-note"><strong>💡 Técnica:</strong> Codos fijos a los lados. Contracción completa arriba,
+            extensión controlada abajo. Mantén tensión constante.</div>
+          <div class="muscles-tag">🎯 Bíceps (cabeza larga y corta)</div>
+        </div>
+      </div>
+
+      <div class="exercise-card" onclick="toggleCard(this)">
+        <div class="exercise-header">
+          <div class="exercise-num">5</div>
+          <div class="exercise-title">
+            <h3>Curl con Mancuerna</h3>
+            <p>3 × 12</p>
+          </div>
+          <div class="expand-arrow">▾</div>
+        </div>
+        <div class="exercise-body">
+          <img class="exercise-gif" src="images/gifs/martes/05-curl-mancuerna.png" alt="Curl con Mancuerna">
+          <div class="sets-row">
+            <div class="set-chip highlight">
+              <div class="chip-top">3</div>
+              <div class="chip-bot">Series</div>
+            </div>
+            <div class="set-chip highlight">
+              <div class="chip-top">12</div>
+              <div class="chip-bot">Reps</div>
+            </div>
+          </div>
+          <div class="exercise-note"><strong>💡 Técnica:</strong> Puedes hacerlo alternado o simultáneo. Gira la muñeca
+            al subir (supinación) para máxima contracción del bícep.</div>
+          <div class="muscles-tag">🎯 Bíceps · Braquial · Antebrazo</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ======= MIERCOLES: GLUTEOS & FEMORALES ======= -->
+    <div id="tab-miercoles" class="routine-panel">
+      <div class="muscle-header">
+        <div class="muscle-icon">🍑</div>
+        <div class="muscle-info">
+          <h2>GLÚTEOS & FEMORALES</h2>
+          <p><span>4</span> ejercicios · Miércoles</p>
+        </div>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-fill" style="width:0%" data-target="100"></div>
+      </div>
+
+      <div class="exercise-card" onclick="toggleCard(this)">
+        <div class="exercise-header">
+          <div class="exercise-num">1</div>
+          <div class="exercise-title">
+            <h3>Sentadilla Libre</h3>
+            <p>4 × 12</p>
+          </div>
+          <div class="expand-arrow">▾</div>
+        </div>
+        <div class="exercise-body">
+          <img class="exercise-gif" src="images/gifs/miercoles/01-sentadilla-libre.gif" alt="Sentadilla Libre">
+          <div class="sets-row">
+            <div class="set-chip highlight">
+              <div class="chip-top">4</div>
+              <div class="chip-bot">Series</div>
+            </div>
+            <div class="set-chip highlight">
+              <div class="chip-top">12</div>
+              <div class="chip-bot">Reps</div>
+            </div>
+          </div>
+          <div class="exercise-note"><strong>💡 Enfoque glúteo:</strong> Pies ligeramente abiertos hacia afuera. Baja
+            profundo. Al subir, aprieta glúteos fuerte en la parte superior.</div>
+          <div class="muscles-tag">🎯 Glúteos · Cuadriceps · Isquiotibiales</div>
+        </div>
+      </div>
+
+      <div class="exercise-card" onclick="toggleCard(this)">
+        <div class="exercise-header">
+          <div class="exercise-num">2</div>
+          <div class="exercise-title">
+            <h3>Sentadilla Búlgara</h3>
+            <p>3 × 12 por pierna</p>
+          </div>
+          <div class="expand-arrow">▾</div>
+        </div>
+        <div class="exercise-body">
+          <img class="exercise-gif" src="images/gifs/miercoles/02-sentadilla-bulgara.gif" alt="Sentadilla Búlgara">
+          <div class="sets-row">
+            <div class="set-chip highlight">
+              <div class="chip-top">3</div>
+              <div class="chip-bot">Series</div>
+            </div>
+            <div class="set-chip highlight">
+              <div class="chip-top">12</div>
+              <div class="chip-bot">Reps/pierna</div>
+            </div>
+          </div>
+          <div class="exercise-note"><strong>💡 Técnica:</strong> Pie trasero elevado en banco. Baja lentamente hasta
+            90°. Mantén el torso erguido. Excelente para glúteo unilateral.</div>
+          <div class="muscles-tag">🎯 Glúteo mayor · Cuadriceps · Equilibrio</div>
+        </div>
+      </div>
+
+      <div class="exercise-card" onclick="toggleCard(this)">
+        <div class="exercise-header">
+          <div class="exercise-num">3</div>
+          <div class="exercise-title">
+            <h3>Sentadilla Sumo</h3>
+            <p>3 × 12</p>
+          </div>
+          <div class="expand-arrow">▾</div>
+        </div>
+        <div class="exercise-body">
+          <img class="exercise-gif" src="images/gifs/miercoles/03-sentadilla-sumo.png" alt="Sentadilla Sumo">
+          <div class="sets-row">
+            <div class="set-chip highlight">
+              <div class="chip-top">3</div>
+              <div class="chip-bot">Series</div>
+            </div>
+            <div class="set-chip highlight">
+              <div class="chip-top">12</div>
+              <div class="chip-bot">Reps</div>
+            </div>
+          </div>
+          <div class="exercise-note"><strong>💡 Técnica:</strong> Pies muy separados, puntas hacia afuera. Activa el
+            aductor y glúteo. Baja con la espalda recta, rodillas siguiendo la dirección de los pies.</div>
+          <div class="muscles-tag">🎯 Glúteos · Aductores · Isquiotibiales</div>
+        </div>
+      </div>
+
+      <div class="exercise-card" onclick="toggleCard(this)">
+        <div class="exercise-header">
+          <div class="exercise-num">4</div>
+          <div class="exercise-title">
+            <h3>Femoral Acostada</h3>
+            <p>3 × 12</p>
+          </div>
+          <div class="expand-arrow">▾</div>
+        </div>
+        <div class="exercise-body">
+          <img class="exercise-gif" src="images/gifs/miercoles/04-femoral-acostada.png" alt="Femoral Acostada">
+          <div class="sets-row">
+            <div class="set-chip highlight">
+              <div class="chip-top">3</div>
+              <div class="chip-bot">Series</div>
+            </div>
+            <div class="set-chip highlight">
+              <div class="chip-top">12</div>
+              <div class="chip-bot">Reps</div>
+            </div>
+          </div>
+          <div class="exercise-note"><strong>💡 Técnica:</strong> Baja el peso de forma controlada (excéntrico lento).
+            No arquees la cadera. Aprieta el isquiotibial en la contracción.</div>
+          <div class="muscles-tag">🎯 Isquiotibiales · Femoral bicep</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ======= JUEVES: HOMBRO PECHO TRICEPS ======= -->
+    <div id="tab-jueves" class="routine-panel">
+      <div class="muscle-header">
+        <div class="muscle-icon">🏋️</div>
+        <div class="muscle-info">
+          <h2>HOMBRO · PECHO · TRÍCEPS</h2>
+          <p><span>5</span> ejercicios · Jueves</p>
+        </div>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-fill" style="width:0%" data-target="100"></div>
+      </div>
+
+      <div class="exercise-card" onclick="toggleCard(this)">
+        <div class="exercise-header">
+          <div class="exercise-num">1</div>
+          <div class="exercise-title">
+            <h3>Press Militar</h3>
+            <p>3 × 12</p>
+          </div>
+          <div class="expand-arrow">▾</div>
+        </div>
+        <div class="exercise-body">
+          <img class="exercise-gif" src="images/gifs/jueves/01-press-militar.gif" alt="Press Militar">
+          <div class="sets-row">
+            <div class="set-chip highlight">
+              <div class="chip-top">3</div>
+              <div class="chip-bot">Series</div>
+            </div>
+            <div class="set-chip highlight">
+              <div class="chip-top">12</div>
+              <div class="chip-bot">Reps</div>
+            </div>
+          </div>
+          <div class="exercise-note"><strong>💡 Técnica:</strong> De pie o sentado. Empuja la barra/mancuernas hacia
+            arriba en línea recta. Core apretado para proteger la espalda baja.</div>
+          <div class="muscles-tag">🎯 Deltoides · Tríceps · Trapecio</div>
+        </div>
+      </div>
+
+      <div class="exercise-card" onclick="toggleCard(this)">
+        <div class="exercise-header">
+          <div class="exercise-num">2</div>
+          <div class="exercise-title">
+            <h3>Elevaciones Frontales + Laterales</h3>
+            <p>3 × 12 cada variante</p>
+          </div>
+          <div class="expand-arrow">▾</div>
+        </div>
+        <div class="exercise-body">
+          <img class="exercise-gif" src="images/gifs/jueves/02-elevaciones-frontales-laterales.png" alt="Elevaciones">
+          <div class="sets-row">
+            <div class="set-chip highlight">
+              <div class="chip-top">3</div>
+              <div class="chip-bot">Series</div>
+            </div>
+            <div class="set-chip highlight">
+              <div class="chip-top">12</div>
+              <div class="chip-bot">Frontales</div>
+            </div>
+            <div class="set-chip highlight">
+              <div class="chip-top">12</div>
+              <div class="chip-bot">Laterales</div>
+            </div>
+          </div>
+          <div class="exercise-note"><strong>🔄 Combinación:</strong> Frontales activan deltoides anterior, laterales
+            activan deltoides medio. Codos ligeramente flexionados, movimiento controlado.</div>
+          <div class="muscles-tag">🎯 Deltoides anterior y lateral</div>
+        </div>
+      </div>
+
+      <div class="exercise-card" onclick="toggleCard(this)">
+        <div class="exercise-header">
+          <div class="exercise-num">3</div>
+          <div class="exercise-title">
+            <h3>Press Arnold</h3>
+            <p>3 × 12</p>
+          </div>
+          <div class="expand-arrow">▾</div>
+        </div>
+        <div class="exercise-body">
+          <img class="exercise-gif" src="images/gifs/jueves/03-press-arnold.gif" alt="Press Arnold">
+          <div class="sets-row">
+            <div class="set-chip highlight">
+              <div class="chip-top">3</div>
+              <div class="chip-bot">Series</div>
+            </div>
+            <div class="set-chip highlight">
+              <div class="chip-top">12</div>
+              <div class="chip-bot">Reps</div>
+            </div>
+          </div>
+          <div class="exercise-note"><strong>💡 Técnica:</strong> Inicia con palmas hacia ti, gira hacia afuera al
+            subir. Trabaja las 3 cabezas del deltoides en un solo movimiento. ¡El favorito de Arnold!</div>
+          <div class="muscles-tag">🎯 Deltoides completo · Tríceps</div>
+        </div>
+      </div>
+
+      <div class="exercise-card" onclick="toggleCard(this)">
+        <div class="exercise-header">
+          <div class="exercise-num">4</div>
+          <div class="exercise-title">
+            <h3>Tríceps en Polea</h3>
+            <p>3 × 12</p>
+          </div>
+          <div class="expand-arrow">▾</div>
+        </div>
+        <div class="exercise-body">
+          <img class="exercise-gif" src="images/gifs/jueves/04-triceps-polea.gif" alt="Tríceps en Polea">
+          <div class="sets-row">
+            <div class="set-chip highlight">
+              <div class="chip-top">3</div>
+              <div class="chip-bot">Series</div>
+            </div>
+            <div class="set-chip highlight">
+              <div class="chip-top">12</div>
+              <div class="chip-bot">Reps</div>
+            </div>
+          </div>
+          <div class="exercise-note"><strong>💡 Técnica:</strong> Codos pegados al cuerpo y fijos. Empuja hacia abajo
+            hasta extensión completa. Aprieta el tríceps en la parte baja.</div>
+          <div class="muscles-tag">🎯 Tríceps (las 3 cabezas)</div>
+        </div>
+      </div>
+
+      <div class="exercise-card" onclick="toggleCard(this)">
+        <div class="exercise-header">
+          <div class="exercise-num">5</div>
+          <div class="exercise-title">
+            <h3>Extensiones de Trícep con Mancuerna</h3>
+            <p>3 × 12</p>
+          </div>
+          <div class="expand-arrow">▾</div>
+        </div>
+        <div class="exercise-body">
+          <img class="exercise-gif" src="images/gifs/jueves/05-extensiones-tricep.gif" alt="Extensiones de Trícep">
+          <div class="sets-row">
+            <div class="set-chip highlight">
+              <div class="chip-top">3</div>
+              <div class="chip-bot">Series</div>
+            </div>
+            <div class="set-chip highlight">
+              <div class="chip-top">12</div>
+              <div class="chip-bot">Reps</div>
+            </div>
+          </div>
+          <div class="exercise-note"><strong>💡 Técnica:</strong> Puede ser con una mancuerna sobre la cabeza
+            (bilateral) o tumbado. Codo fijo, mueve solo el antebrazo. Rango completo de movimiento.</div>
+          <div class="muscles-tag">🎯 Tríceps cabeza larga (aislamiento)</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ======= VIERNES: PIERNA COMPLETA ======= -->
+    <div id="tab-viernes" class="routine-panel">
+      <div class="muscle-header">
+        <div class="muscle-icon">⚡</div>
+        <div class="muscle-info">
+          <h2>PIERNA COMPLETA</h2>
+          <p><span>5</span> ejercicios · Viernes</p>
+        </div>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-fill" style="width:0%" data-target="100"></div>
+      </div>
+
+      <div class="exercise-card" onclick="toggleCard(this)">
+        <div class="exercise-header">
+          <div class="exercise-num">1</div>
+          <div class="exercise-title">
+            <h3>Sentadilla</h3>
+            <p>3 × 12</p>
+          </div>
+          <div class="expand-arrow">▾</div>
+        </div>
+        <div class="exercise-body">
+          <img class="exercise-gif" src="images/gifs/viernes/01-sentadilla.gif" alt="Sentadilla">
+          <div class="sets-row">
+            <div class="set-chip highlight">
+              <div class="chip-top">3</div>
+              <div class="chip-bot">Series</div>
+            </div>
+            <div class="set-chip highlight">
+              <div class="chip-top">12</div>
+              <div class="chip-bot">Reps</div>
+            </div>
+          </div>
+          <div class="exercise-note"><strong>💡 Día de pierna completa:</strong> Enfócate en el movimiento global.
+            Activa cuádriceps, femorales y glúteos en cada repetición.</div>
+          <div class="muscles-tag">🎯 Pierna completa · Glúteos</div>
+        </div>
+      </div>
+
+      <div class="exercise-card" onclick="toggleCard(this)">
+        <div class="exercise-header">
+          <div class="exercise-num">2</div>
+          <div class="exercise-title">
+            <h3>Peso Muerto Rumano</h3>
+            <p>3 × 12</p>
+          </div>
+          <div class="expand-arrow">▾</div>
+        </div>
+        <div class="exercise-body">
+          <img class="exercise-gif" src="images/gifs/viernes/02-peso-muerto-rumano.gif" alt="Peso Muerto Rumano">
+          <div class="sets-row">
+            <div class="set-chip highlight">
+              <div class="chip-top">3</div>
+              <div class="chip-bot">Series</div>
+            </div>
+            <div class="set-chip highlight">
+              <div class="chip-top">12</div>
+              <div class="chip-bot">Reps</div>
+            </div>
+          </div>
+          <div class="exercise-note"><strong>💡 Técnica:</strong> Baja la barra deslizando por las piernas con las
+            rodillas ligeramente flexionadas. Siente el estiramiento en los isquiotibiales. Espalda siempre recta.</div>
+          <div class="muscles-tag">🎯 Isquiotibiales · Glúteos · Espalda baja</div>
+        </div>
+      </div>
+
+      <div class="exercise-card" onclick="toggleCard(this)">
+        <div class="exercise-header">
+          <div class="exercise-num">3</div>
+          <div class="exercise-title">
+            <h3>Hip Thrust</h3>
+            <p>3 × 12</p>
+          </div>
+          <div class="expand-arrow">▾</div>
+        </div>
+        <div class="exercise-body">
+          <img class="exercise-gif" src="images/gifs/viernes/03-hip-thrust.gif" alt="Hip Thrust">
+          <div class="sets-row">
+            <div class="set-chip highlight">
+              <div class="chip-top">3</div>
+              <div class="chip-bot">Series</div>
+            </div>
+            <div class="set-chip highlight">
+              <div class="chip-top">12</div>
+              <div class="chip-bot">Reps</div>
+            </div>
+          </div>
+          <div class="exercise-note"><strong>💡 Rey del glúteo:</strong> Hombros apoyados en banco, barra sobre caderas.
+            Empuja cadera al techo y aprieta glúteo en la parte alta. Mantén 1 segundo arriba.</div>
+          <div class="muscles-tag">🎯 Glúteo mayor (ejercicio estrella)</div>
+        </div>
+      </div>
+
+      <div class="exercise-card" onclick="toggleCard(this)">
+        <div class="exercise-header">
+          <div class="exercise-num">4</div>
+          <div class="exercise-title">
+            <h3>Abductor</h3>
+            <p>3 × 12</p>
+          </div>
+          <div class="expand-arrow">▾</div>
+        </div>
+        <div class="exercise-body">
+          <img class="exercise-gif" src="images/gifs/viernes/04-abductor.gif" alt="Abductor">
+          <div class="sets-row">
+            <div class="set-chip highlight">
+              <div class="chip-top">3</div>
+              <div class="chip-bot">Series</div>
+            </div>
+            <div class="set-chip highlight">
+              <div class="chip-top">12</div>
+              <div class="chip-bot">Reps</div>
+            </div>
+          </div>
+          <div class="exercise-note"><strong>💡 Técnica:</strong> Movimiento controlado, abre y cierra sin rebotar.
+            Mantén la tensión durante todo el recorrido. Activa glúteo medio.</div>
+          <div class="muscles-tag">🎯 Glúteo medio · Tensor fascia lata</div>
+        </div>
+      </div>
+
+      <div class="exercise-card" onclick="toggleCard(this)">
+        <div class="exercise-header">
+          <div class="exercise-num">5</div>
+          <div class="exercise-title">
+            <h3>Patada con Polea</h3>
+            <p>3 × 12 por pierna</p>
+          </div>
+          <div class="expand-arrow">▾</div>
+        </div>
+        <div class="exercise-body">
+          <img class="exercise-gif" src="images/gifs/viernes/05-patada-polea.png" alt="Patada con Polea">
+          <div class="sets-row">
+            <div class="set-chip highlight">
+              <div class="chip-top">3</div>
+              <div class="chip-bot">Series</div>
+            </div>
+            <div class="set-chip highlight">
+              <div class="chip-top">12</div>
+              <div class="chip-bot">Reps/pierna</div>
+            </div>
+          </div>
+          <div class="exercise-note"><strong>💡 Técnica:</strong> Ancla el tobillo a la polea baja. Mantente erguido con
+            ayuda del soporte. Patada hacia atrás controlada, apretando glúteo en extensión máxima.</div>
+          <div class="muscles-tag">🎯 Glúteo mayor (aislamiento unilateral)</div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /content -->
+
+  <!-- FOOTER -->
+  <footer>
+    <p>CROSS FOUR 27</p>
+    <small>Entrena fuerte · Entrena con propósito</small>
+  </footer>
+
+  <script>
+    function showTab(day, btn) {
+      document.querySelectorAll('.routine-panel').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById('tab-' + day).classList.add('active');
+      btn.classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function toggleCard(card) {
+      const isOpen = card.classList.contains('open');
+      // Close all in same panel
+      const panel = card.closest('.routine-panel');
+      panel.querySelectorAll('.exercise-card.open').forEach(c => c.classList.remove('open'));
+      if (!isOpen) card.classList.add('open');
+    }
+  </script>
+</body>
+
+</html>
